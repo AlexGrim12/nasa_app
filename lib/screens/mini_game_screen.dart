@@ -110,7 +110,7 @@ class _MiniGameState extends State<MiniGameScreen> {
                 child: InkWell(
                   onTap: () => _onImageTap(i),
                   child: Image.network(
-                    'https://cdn-icons-png.flaticon.com/512/4947/4947506.png',
+                    'https://img1.freepng.es/20180130/ovq/kisspng-plastic-bottle-plastic-bottle-water-bottle-plastic-bottle-5a7030282e0d88.4616791815173018001886.jpg',
                     width: 75,
                     height: 75,
                   ),
