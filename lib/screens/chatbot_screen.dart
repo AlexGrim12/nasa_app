@@ -68,7 +68,16 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                 },
                 child: const Text('Chatbot')),
             // Print content
-            Text(content),
+            Card(
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: Column(
+                  children: [
+                    ListTile(
+                      title: Text(content),
+                    ),
+                    Padding(padding: EdgeInsets.all(16.0)),
+                  ],
+                )),
           ]),
         ),
       ),
