@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:google_generative_language_api/google_generative_language_api.dart';
+import 'package:nasa_app/models/chat_card.dart';
 
 late final String apiKey;
 
@@ -14,10 +14,16 @@ class ChatbotScreen extends StatefulWidget {
 class _ChatbotScreenState extends State<ChatbotScreen> {
   final TextEditingController _controller = TextEditingController();
   String content = 'Hi, I am a chatbot, ask me about the ocean.';
+  List<Message> messages = [];
+  late String apiKey;
+
+  @override
+  void initState() {
+    super.initState();
+    apiKey = 'AIzaSyDWnszd8THhYE-m9OH2AIripZBxboCkVao';
+  }
 
   Future<void> chat(String message) async {
-    apiKey = 'AIzaSyDWnszd8THhYE-m9OH2AIripZBxboCkVao';
-
     const String chatModel = 'models/chat-bison-001';
 
     // Generate a message.
@@ -37,9 +43,12 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
       apiKey: apiKey,
     );
 
-    // Update the content variable with the content of the second candidate.
+    print(messageResponse);
+
     setState(() {
-      content = messageResponse.candidates[0].content;
+      messages.add(Message(author: 'User', content: message));
+      messages.add(Message(
+          author: 'Willy', content: messageResponse.candidates[0].content));
     });
   }
 
@@ -47,39 +56,57 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chatbot'),
+        title: const Text('Willy Bot'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: Column(children: [
-            TextField(
-              controller: _controller,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Message',
+        padding: const EdgeInsets.only(bottom: 16, left: 8, right: 8),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Print content
+              Expanded(
+                child: ListView.builder(
+                  itemCount: messages.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final message = messages[index];
+                    return ChatCard(
+                      messageText: message.content,
+                      senderName: 'Willy',
+                      messageTimestamp: 'Number of message: $index',
+                    );
+                  },
+                ),
               ),
-            ),
-
-            ElevatedButton(
-                onPressed: () {
-                  chat(_controller.text);
-                  _controller.clear();
-                },
-                child: const Text('Chatbot')),
-            // Print content
-            Card(
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: Column(
-                  children: [
-                    ListTile(
-                      title: Text(content),
+              Row(
+                children: [
+                  Expanded(
+                    flex:
+                        4, // Adjust the flex value to control the width of the text field.
+                    child: TextField(
+                      controller: _controller,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Enter a question',
+                      ),
                     ),
-                    Padding(padding: EdgeInsets.all(16.0)),
-                  ],
-                )),
-          ]),
-        ),
+                  ),
+                  const SizedBox(width: 8),
+                  SizedBox(
+                    height: 48,
+                    child: Expanded(
+                      flex: 1,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            chat(_controller.text);
+                            _controller.clear();
+                          },
+                          child: const Icon(Icons.send)),
+                    ),
+                  ),
+                ],
+              ),
+            ]),
       ),
     );
   }
