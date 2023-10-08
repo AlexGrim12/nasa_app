@@ -1,9 +1,43 @@
 import 'package:nasa_app/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:nasa_app/screens/chatbot_screen.dart';
+import 'package:google_generative_language_api/google_generative_language_api.dart';
+import 'package:nasa_app/models/iahome_card.dart';
 
-class HomeScreen extends StatelessWidget {
+late final String apiKey = 'AIzaSyDWnszd8THhYE-m9OH2AIripZBxboCkVao';
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String content = '';
+  String content2 = '';
+
+  Future<String> information(String message) async {
+    const String textModel = 'models/text-bison-001';
+    // Generate text.
+    final textRequest = GenerateTextRequest(
+      prompt: TextPrompt(text: message),
+      temperature: 1.0,
+      candidateCount: 2,
+    );
+
+    final response = await GenerativeLanguageAPI.generateText(
+      modelName: textModel,
+      request: textRequest,
+      apiKey: apiKey,
+    );
+
+    // setState(() {
+    //   content = response.candidates[0].output;
+    // });
+    print(response.candidates[0].output);
+    return response.candidates[0].output;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +77,62 @@ class HomeScreen extends StatelessWidget {
                             style: const TextStyle(color: Colors.white),
                           ),
                         ]),
-                        //
                       ),
                   ],
                 ),
               ),
-              Expanded(child: Column(children: [
-                
-              ],)),
+              Expanded(
+                flex: 1,
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orange[700],
+                        foregroundColor: Colors.white,
+                        shadowColor: Colors.amber,
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32.0),
+                        ),
+                        padding: const EdgeInsets.all(16.0),
+                      ),
+                      onPressed: () async {
+                        content = await information(
+                            'tell me one hard fact about pollution');
+                        // if (content2 == '') {
+                        content2 = await information('$content solution');
+                        print(content2);
+                        // }
+                        setState(
+                            () {}); // Update the UI after receiving content and content2
+                      },
+                      child: const Row(children: [
+                        SizedBox(width: 10),
+                        Text(
+                          'Generate a Problem and Solution',
+                        ),
+                      ]),
+                    ),
+                    SizedBox(height: 8),
+                    Column(
+                      children: [
+                        Card(
+                          child: ContentCard(content: content, sop: 'Problem'),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Card(
+                          child:
+                              ContentCard(content: content2, sop: 'Solution'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
               Align(
                 alignment: Alignment.bottomRight,
                 child: Padding(

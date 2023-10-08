@@ -59,10 +59,10 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Willy Bot'),
-        backgroundColor: Colors.grey[900],
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Willy Bot'),
+      //   backgroundColor: Colors.grey[900],
+      // ),
       body: Stack(
         children: [
           Container(
