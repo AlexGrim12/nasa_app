@@ -85,33 +85,40 @@ class _HomeScreenState extends State<HomeScreen> {
                 flex: 1,
                 child: Column(
                   children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange[700],
-                        foregroundColor: Colors.white,
-                        shadowColor: Colors.amber,
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32.0),
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(
+                          maxHeight: 50,
+                          minHeight: 50,
+                          minWidth: 400,
+                          maxWidth: 400),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange[700],
+                          foregroundColor: Colors.white,
+                          shadowColor: Colors.amber,
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(32.0),
+                          ),
+                          padding: const EdgeInsets.all(16.0),
                         ),
-                        padding: const EdgeInsets.all(16.0),
+                        onPressed: () async {
+                          content = await information(
+                              'tell me one hard fact about pollution');
+                          // if (content2 == '') {
+                          content2 = await information('$content solution');
+                          print(content2);
+                          // }
+                          setState(
+                              () {}); // Update the UI after receiving content and content2
+                        },
+                        child: const Row(children: [
+                          SizedBox(width: 10),
+                          Text(
+                            'Generate a Problem and Solution',
+                          ),
+                        ]),
                       ),
-                      onPressed: () async {
-                        content = await information(
-                            'tell me one hard fact about pollution');
-                        // if (content2 == '') {
-                        content2 = await information('$content solution');
-                        print(content2);
-                        // }
-                        setState(
-                            () {}); // Update the UI after receiving content and content2
-                      },
-                      child: const Row(children: [
-                        SizedBox(width: 10),
-                        Text(
-                          'Generate a Problem and Solution',
-                        ),
-                      ]),
                     ),
                     SizedBox(height: 8),
                     Column(

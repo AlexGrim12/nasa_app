@@ -4,6 +4,7 @@ import 'package:nasa_app/screens/mini_game_screen.dart';
 import '../../models/models.dart';
 import '../../screens/home_screen.dart';
 import '../screens/testing_screen.dart';
+import '../screens/ecosystems_screen.dart';
 
 class AppRoutes {
   static const initialRoute = 'home';
@@ -23,6 +24,11 @@ class AppRoutes {
         icon: Icons.abc,
         name: 'testing',
         screen: const TestingScreen()),
+    MenuOption(
+        route: 'ecosystems',
+        icon: Icons.eco,
+        name: 'Ecosystems',
+        screen: const EcosystemsScreen()),
   ];
 
   static Map<String, Widget Function(BuildContext)> getAppRoutes() {

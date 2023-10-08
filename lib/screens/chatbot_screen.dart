@@ -95,7 +95,8 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                         child: TextField(
                           style: const TextStyle(color: Colors.white),
                           controller: _controller,
-                          decoration: const InputDecoration(
+                          decoration: 
+                          const InputDecoration(
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.white,
