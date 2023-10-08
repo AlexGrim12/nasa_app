@@ -140,7 +140,6 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
               ),
             ),
           ),
-
           // Show the loading GIF if isLoading is true
           Visibility(
             visible: isLoading,
