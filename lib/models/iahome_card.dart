@@ -17,7 +17,7 @@ class ContentCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: ConstrainedBox(
           constraints:
-              BoxConstraints(maxHeight: 100, minWidth: 400, maxWidth: 400),
+              const BoxConstraints(maxHeight: 65, minWidth: 400, maxWidth: 400),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
@@ -25,7 +25,7 @@ class ContentCard extends StatelessWidget {
               children: [
                 Text(
                   sop,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,

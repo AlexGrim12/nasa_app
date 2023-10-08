@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final textRequest = GenerateTextRequest(
       prompt: TextPrompt(text: message),
       temperature: 1.0,
-      candidateCount: 2,
+      candidateCount: 1,
     );
 
     final response = await GenerativeLanguageAPI.generateText(
@@ -104,9 +104,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         onPressed: () async {
                           content = await information(
-                              'tell me one hard fact about pollution');
+                              'tell me one hard fact about water pollution');
                           // if (content2 == '') {
-                          content2 = await information('$content solution');
+                          content2 = await information(
+                              'Tell me a solution of this problem: $content');
                           print(content2);
                           // }
                           setState(
