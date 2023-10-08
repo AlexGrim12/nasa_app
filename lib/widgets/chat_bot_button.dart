@@ -9,7 +9,7 @@ class ChatBotButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.bottomLeft,
+      alignment: Alignment.bottomRight,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: ElevatedButton(

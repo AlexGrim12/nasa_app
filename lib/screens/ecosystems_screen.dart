@@ -29,7 +29,7 @@ class EcosystemsScreen extends StatelessWidget {
             ),
             // Botones
             const Align(
-              alignment: Alignment.topLeft,
+              alignment: Alignment.topRight,
               child: Padding(
                 padding: EdgeInsets.all(30.0),
                 child: EcosystemButton1(),
@@ -43,7 +43,7 @@ class EcosystemsScreen extends StatelessWidget {
               ),
             ),
             const Align(
-              alignment: Alignment.bottomRight,
+              alignment: Alignment.bottomLeft,
               child: Padding(
                 padding: EdgeInsets.all(16.0),
                 child: EcosystemButton3(),
