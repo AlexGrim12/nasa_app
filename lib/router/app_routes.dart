@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nasa_app/screens/chatbot_screen.dart';
-import 'package:nasa_app/screens/mini_game_screen.dart';
-import '../../models/models.dart';
-import '../../screens/home_screen.dart';
+import 'package:nasa_app/models/menu_options.dart';
+
+import '../screens/screens.dart';
 
 class AppRoutes {
   static const initialRoute = 'home';
@@ -17,6 +16,17 @@ class AppRoutes {
         icon: Icons.games,
         name: "Mini Game",
         screen: const MiniGameScreen()),
+    MenuOption(
+        route: 'ecosystems',
+        icon: Icons.eco,
+        name: 'Ecosystems',
+        screen: const EcosystemsScreen()),
+    MenuOption(
+      route: 'pond',
+      icon: Icons.camera_alt,
+      name: 'Pond',
+      screen: PondScreen(),
+    ),
   ];
 
   static Map<String, Widget Function(BuildContext)> getAppRoutes() {

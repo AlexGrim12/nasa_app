@@ -14,7 +14,9 @@ class ChatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.grey[800],
       elevation: 2,
+      shadowColor: Colors.white,
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Padding(
         padding: EdgeInsets.all(16),
@@ -24,6 +26,7 @@ class ChatCard extends StatelessWidget {
             Text(
               senderName,
               style: TextStyle(
+                color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
@@ -31,7 +34,7 @@ class ChatCard extends StatelessWidget {
             SizedBox(height: 8),
             Text(
               messageText,
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(fontSize: 14, color: Colors.white),
             ),
             SizedBox(height: 8),
             Text(
