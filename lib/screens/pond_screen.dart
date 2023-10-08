@@ -5,6 +5,8 @@ import 'dart:math';
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
 
+import 'package:nasa_app/widgets/widgets.dart';
+
 const double width_btn = 400;
 const double height_btn = 200;
 
@@ -97,128 +99,131 @@ class AnimacionState extends State<PondScreen> {
     );
 
     return Scaffold(
-        body: Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/gifs/mini_game_background_gif.gif'),
-          fit: BoxFit.cover,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/gifs/mini_game_background_gif.gif'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: <Widget>[
+                AnimatedPositioned(
+                  width: width_img,
+                  height: height_img,
+                  top: 100,
+                  left: selected ? izq : der,
+                  duration: Duration(seconds: aleatorio(5, 20)),
+                  curve: Curves.fastOutSlowIn,
+                  child: GestureDetector(
+                      onTap: () {
+                        scan.DialogoPez(context, pez_a);
+                      },
+                      child: Center(
+                        child: Image(
+                            image: Image.asset(
+                          pezaImg_path,
+                          scale: 0.2,
+                        ).image),
+                      )),
+                ),
+                AnimatedPositioned(
+                  width: width_img,
+                  height: height_img,
+                  left: !selected ? izq : der,
+                  top: 350,
+                  duration: Duration(seconds: aleatorio(5, 20)),
+                  curve: Curves.fastOutSlowIn,
+                  child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          scan.DialogoPez(context, pez_b);
+                        });
+                      },
+                      child: Center(
+                        child: Image(
+                            image: Image.asset(
+                          pezbImg_path,
+                          scale: 0.2,
+                        ).image),
+                      )),
+                ),
+                AnimatedPositioned(
+                  width: width_img,
+                  height: height_img,
+                  left: selected ? izq : der,
+                  top: 520,
+                  duration: Duration(seconds: aleatorio(5, 20)),
+                  curve: Curves.fastOutSlowIn,
+                  child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          scan.DialogoPez(context, pez_c);
+                        });
+                      },
+                      child: Center(
+                        child: Image(
+                            image: Image.asset(
+                          pezcImg_path,
+                          scale: 0.2,
+                        ).image),
+                      )),
+                ),
+                AnimatedPositioned(
+                  width: 100,
+                  height: 100.0,
+                  bottom: 20,
+                  left: 150,
+                  duration: const Duration(seconds: 5),
+                  curve: Curves.fastOutSlowIn,
+                  child: FloatingActionButton.large(
+                    onPressed: () {
+                      scan.scanCode(context);
+                    },
+                    child: const Icon(Icons.camera),
+                  ),
+                ),
+                AnimatedPositioned(
+                  width: 60,
+                  height: 60.0,
+                  bottom: 40,
+                  left: 75,
+                  duration: const Duration(seconds: 5),
+                  curve: Curves.fastOutSlowIn,
+                  child: FloatingActionButton.large(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(Icons.exit_to_app),
+                  ),
+                ),
+                AnimatedPositioned(
+                  width: 60,
+                  height: 60.0,
+                  bottom: 40,
+                  left: 265,
+                  duration: const Duration(seconds: 1),
+                  curve: Curves.fastOutSlowIn,
+                  child: FloatingActionButton.large(
+                    onPressed: () {
+                      setState(() {
+                        selected = !selected;
+                      });
+                    },
+                    child: const Icon(Icons.double_arrow),
+                  ),
+                ),
+                const ChatBotButton(),
+              ],
+            ),
+          ),
         ),
       ),
-      child: Center(
-          child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Stack(
-          children: <Widget>[
-            AnimatedPositioned(
-              width: width_img,
-              height: height_img,
-              top: 100,
-              left: selected ? izq : der,
-              duration: Duration(seconds: aleatorio(5, 20)),
-              curve: Curves.fastOutSlowIn,
-              child: GestureDetector(
-                  onTap: () {
-                    scan.DialogoPez(context, pez_a);
-                  },
-                  child: Center(
-                    child: Image(
-                        image: Image.asset(
-                      pezaImg_path,
-                      scale: 0.2,
-                    ).image),
-                  )),
-            ),
-            AnimatedPositioned(
-              width: width_img,
-              height: height_img,
-              left: !selected ? izq : der,
-              top: 350,
-              duration: Duration(seconds: aleatorio(5, 20)),
-              curve: Curves.fastOutSlowIn,
-              child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      scan.DialogoPez(context, pez_b);
-                    });
-                  },
-                  child: Center(
-                    child: Image(
-                        image: Image.asset(
-                      pezbImg_path,
-                      scale: 0.2,
-                    ).image),
-                  )),
-            ),
-            AnimatedPositioned(
-              width: width_img,
-              height: height_img,
-              left: selected ? izq : der,
-              top: 520,
-              duration: Duration(seconds: aleatorio(5, 20)),
-              curve: Curves.fastOutSlowIn,
-              child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      scan.DialogoPez(context, pez_c);
-                    });
-                  },
-                  child: Center(
-                    child: Image(
-                        image: Image.asset(
-                      pezcImg_path,
-                      scale: 0.2,
-                    ).image),
-                  )),
-            ),
-            AnimatedPositioned(
-              width: 100,
-              height: 100.0,
-              bottom: 20,
-              left: 150,
-              duration: const Duration(seconds: 5),
-              curve: Curves.fastOutSlowIn,
-              child: FloatingActionButton.large(
-                onPressed: () {
-                  scan.scanCode(context);
-                },
-                child: const Icon(Icons.camera),
-              ),
-            ),
-            AnimatedPositioned(
-              width: 60,
-              height: 60.0,
-              bottom: 40,
-              left: 75,
-              duration: const Duration(seconds: 5),
-              curve: Curves.fastOutSlowIn,
-              child: FloatingActionButton.large(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Icon(Icons.exit_to_app),
-              ),
-            ),
-            AnimatedPositioned(
-              width: 60,
-              height: 60.0,
-              bottom: 40,
-              left: 265,
-              duration: const Duration(seconds: 1),
-              curve: Curves.fastOutSlowIn,
-              child: FloatingActionButton.large(
-                onPressed: () {
-                  setState(() {
-                    selected = !selected;
-                  });
-                },
-                child: const Icon(Icons.double_arrow),
-              ),
-            ),
-          ],
-        ),
-      )),
-    ));
+    );
   }
 }
 
@@ -229,8 +234,8 @@ class Escaner {
 
   Escaner() {
     const pezaImg_path = "assets/images/clown_fish.png";
-    const pezbImg_path = "assets/images/white";
-    const pezcImg_path = "assets/images/ax";
+    const pezbImg_path = "assets/images/white_shark.png";
+    const pezcImg_path = "assets/images/axolotl.png";
 
     pez_a = Pez(
       "clownfish",
@@ -241,7 +246,7 @@ class Escaner {
       pezaImg_path,
     );
     pez_b = Pez(
-      "shark",
+      "white_shark",
       "White Shark",
       "The shark is an aquatic animal that lives in the sea",
       false,
@@ -260,13 +265,13 @@ class Escaner {
 
   Future<void> scanCode(BuildContext context) async {
     var result = await BarcodeScanner.scan();
-    if (result.rawContent == "Clownfish") {
+    if (result.rawContent == "Pez_Payaso") {
       DialogoScan(context, pez_a);
     }
-    if (result.rawContent == "White Shark") {
+    if (result.rawContent == "Tiburon_Blanco") {
       DialogoScan(context, pez_b);
     }
-    if (result.rawContent == "Axolotl") {
+    if (result.rawContent == "http://Axolote") {
       DialogoScan(context, pez_c);
     }
   }

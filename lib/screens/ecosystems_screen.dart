@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:nasa_app/widgets/widgets.dart';
 
 class EcosystemsScreen extends StatelessWidget {
@@ -48,6 +49,7 @@ class EcosystemsScreen extends StatelessWidget {
                 child: EcosystemButton3(),
               ),
             ),
+            const ChatBotButton(),
           ],
         ),
       ),

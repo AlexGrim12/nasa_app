@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nasa_app/screens/chatbot_screen.dart';
 import 'package:google_generative_language_api/google_generative_language_api.dart';
 import 'package:nasa_app/models/iahome_card.dart';
+import 'package:nasa_app/widgets/widgets.dart';
 
 late final String apiKey = 'AIzaSyDWnszd8THhYE-m9OH2AIripZBxboCkVao';
 
@@ -31,11 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
       request: textRequest,
       apiKey: apiKey,
     );
-
-    // setState(() {
-    //   content = response.candidates[0].output;
-    // });
-    print(response.candidates[0].output);
     return response.candidates[0].output;
   }
 
@@ -62,29 +58,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 100,
               ),
               Expanded(
-                child: Column(
-                  children: [
-                    for (final option in menuOptions)
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, option.route);
-                        },
-                        child: Row(children: [
-                          Icon(option.icon),
-                          const SizedBox(width: 10),
-                          Text(
-                            option.name,
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        ]),
-                      ),
-                  ],
-                ),
-              ),
-              Expanded(
                 flex: 1,
                 child: Column(
                   children: [
+                    Column(
+                      children: [
+                        Card(
+                          child: content == null
+                              ? const Center(child: CircularProgressIndicator())
+                              : ContentCard(content: content, sop: 'Problem'),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Card(
+                          child: content2 == null
+                              ? const Center(child: CircularProgressIndicator())
+                              : ContentCard(content: content2, sop: 'Solution'),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
                     ConstrainedBox(
                       constraints: const BoxConstraints(
                           maxHeight: 50,
@@ -105,11 +100,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: () async {
                           content = await information(
                               'tell me one hard fact about water pollution');
-                          // if (content2 == '') {
                           content2 = await information(
                               'Tell me a solution of this problem: $content');
                           print(content2);
-                          // }
                           setState(
                               () {}); // Update the UI after receiving content and content2
                         },
@@ -121,55 +114,30 @@ class _HomeScreenState extends State<HomeScreen> {
                         ]),
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Column(
-                      children: [
-                        Card(
-                          child: ContentCard(content: content, sop: 'Problem'),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Card(
-                          child:
-                              ContentCard(content: content2, sop: 'Solution'),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
               ),
-
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.amber,
-                      shape: const CircleBorder(),
-                      padding: const EdgeInsets.all(15.0),
-                      shadowColor: Colors.amber,
-                    ),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return const Dialog(
-                            shadowColor: Colors.amber,
-                            // shape: RoundedRectangleBorder(
-                            //   borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                            // ),
-                            child: ChatbotScreen(),
-                          );
+              Expanded(
+                child: Column(
+                  children: [
+                    for (final option in menuOptions)
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, option.route);
                         },
-                      );
-                    },
-                    child: const Icon(Icons.chat_bubble),
-                  ),
+                        child: Row(children: [
+                          Icon(option.icon),
+                          const SizedBox(width: 10),
+                          Text(
+                            option.name,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ]),
+                      ),
+                  ],
                 ),
               ),
+              const ChatBotButton(),
             ],
           ),
         ),
