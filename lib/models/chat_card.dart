@@ -15,6 +15,7 @@ class ChatCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
+      shadowColor: Colors.white,
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Padding(
         padding: EdgeInsets.all(16),

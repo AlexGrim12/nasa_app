@@ -29,7 +29,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     // Generate a message.
     final messagePrompt = MessagePrompt(
       messages: [
-        Message(author: '1', content: message),
+        Message(author: 'User', content: message), // Set the author to "User"
       ],
     );
     final messageRequest = GenerateMessageRequest(
@@ -57,10 +57,13 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Willy Bot'),
+        backgroundColor: Colors.grey[900],
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(bottom: 16, left: 8, right: 8),
-        child: Column(
+      body: Container(
+        color: Colors.grey[900],
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 16, left: 8, right: 8),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -72,7 +75,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     final message = messages[index];
                     return ChatCard(
                       messageText: message.content,
-                      senderName: 'Willy',
+                      senderName: message.author!, // set the sender name
                       messageTimestamp: 'Number of message: $index',
                     );
                   },
@@ -84,10 +87,17 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     flex:
                         4, // Adjust the flex value to control the width of the text field.
                     child: TextField(
+                      style: const TextStyle(color: Colors.white),
                       controller: _controller,
                       decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                            width: 2,
+                          ),
+                        ),
                         labelText: 'Enter a question',
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
@@ -101,12 +111,17 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                             chat(_controller.text);
                             _controller.clear();
                           },
+                          // style: ElevatedButton.styleFrom(
+                          //   backgroundColor: Colors.orange,
+                          // ),
                           child: const Icon(Icons.send)),
                     ),
                   ),
                 ],
               ),
-            ]),
+            ],
+          ),
+        ),
       ),
     );
   }
